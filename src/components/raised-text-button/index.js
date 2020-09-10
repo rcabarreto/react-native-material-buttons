@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
-import { Animated } from 'react-native';
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import { Animated } from "react-native";
 
-import RaisedButton from '../raised-button';
-import { styles } from './styles';
+import RaisedButton from "../raised-button";
+import { styles } from "./styles";
 
 export default class RaisedTextButton extends PureComponent {
   static defaultProps = {
-    titleColor: 'rgb(66, 66, 66)',
-    disabledTitleColor: 'rgba(0, 0, 0, .26)',
+    titleColor: "rgb(66, 66, 66)",
+    disabledTitleColor: "rgba(0, 0, 0, .26)",
   };
 
   static propTypes = {
@@ -16,7 +16,7 @@ export default class RaisedTextButton extends PureComponent {
 
     title: PropTypes.string.isRequired,
     titleColor: PropTypes.string,
-    titleStyle: Animated.Text.propTypes.style,
+    titleStyle: PropTypes.object,
     disabledTitleColor: PropTypes.string,
   };
 
@@ -25,7 +25,7 @@ export default class RaisedTextButton extends PureComponent {
 
     let {
       disabled,
-      disableAnimation = new Animated.Value(disabled? 1 : 0),
+      disableAnimation = new Animated.Value(disabled ? 1 : 0),
     } = this.props;
 
     this.state = {

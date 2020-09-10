@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
-import { View, Animated, Easing } from 'react-native';
-import Ripple from 'react-native-material-ripple';
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import { View, Animated, Easing } from "react-native";
+import Ripple from "react-native-material-ripple";
 
-import { styles } from './styles';
+import { styles } from "./styles";
 
 export default class Button extends PureComponent {
   static defaultProps = {
@@ -12,10 +12,10 @@ export default class Button extends PureComponent {
 
     hitSlop: { top: 6, right: 4, bottom: 6, left: 4 },
 
-    color: 'rgb(224, 224, 224)',
-    disabledColor: 'rgb(240, 240, 240)',
+    color: "rgb(224, 224, 224)",
+    disabledColor: "rgb(240, 240, 240)",
 
-    shadeColor: 'rgb(0, 0, 0)',
+    shadeColor: "rgb(0, 0, 0)",
     shadeOpacity: 0.12,
     shadeBorderRadius: 2,
 
@@ -54,7 +54,7 @@ export default class Button extends PureComponent {
     let {
       disabled,
       focusAnimation = new Animated.Value(0),
-      disableAnimation = new Animated.Value(disabled? 1 : 0),
+      disableAnimation = new Animated.Value(disabled ? 1 : 0),
     } = this.props;
 
     this.state = {
@@ -70,16 +70,18 @@ export default class Button extends PureComponent {
       let { disableAnimationDuration: duration } = this.props;
       let { disableAnimation } = this.state;
 
-      Animated
-        .timing(disableAnimation, { toValue: disabled? 1 : 0, duration })
-        .start();
+      Animated.timing(disableAnimation, {
+        toValue: disabled ? 1 : 0,
+        duration,
+        useNativeDriver: false,
+      }).start();
     }
   }
 
   onPress() {
     let { onPress, payload } = this.props;
 
-    if ('function' === typeof onPress) {
+    if ("function" === typeof onPress) {
       onPress(payload);
     }
   }
@@ -88,13 +90,12 @@ export default class Button extends PureComponent {
     let { focusAnimation } = this.state;
     let { focusAnimationDuration } = this.props;
 
-    Animated
-      .timing(focusAnimation, {
-        toValue: focused? 1 : 0,
-        duration: focusAnimationDuration,
-        easing: Easing.out(Easing.ease),
-      })
-      .start();
+    Animated.timing(focusAnimation, {
+      toValue: focused ? 1 : 0,
+      duration: focusAnimationDuration,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: false,
+    }).start();
   }
 
   render() {
@@ -132,16 +133,15 @@ export default class Button extends PureComponent {
     return (
       <Ripple
         {...props}
-
-        style={[ styles.container, rippleStyle, style ]}
+        style={[styles.container, rippleStyle, style]}
         onPress={this.onPress}
         onPressIn={this.onPressIn}
         onPressOut={this.onPressOut}
       >
         {children}
 
-        <View style={[ styles.shadeContainer, shadeContainerStyle ]}>
-          <Animated.View style={[ styles.shade, shadeStyle ]} />
+        <View style={[styles.shadeContainer, shadeContainerStyle]}>
+          <Animated.View style={[styles.shade, shadeStyle]} />
         </View>
       </Ripple>
     );
